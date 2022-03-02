@@ -4,10 +4,16 @@ const searchPhone = () => {
     // console.log(searchText);
 
     searchField.value = '';
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displaySearchResult(data.data.slice(0, 20)))
+    if (searchText === '') {
+        document.getElementById('error').style.display = 'block';
+    }
+    else {
+        document.getElementById('error').style.display = 'none';
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaySearchResult(data.data.slice(0, 20)))
+    }
 }
 
 const displaySearchResult = phones => {
@@ -21,8 +27,8 @@ const displaySearchResult = phones => {
         <div class="card w-75">
             <img src="${phone.image}" class="card-img-top p-4" alt="...">
             <div class="card-body">
-                <h5 class="card-title">${phone.phone_name}</h5>
-                <p class="card-text">${phone.brand}</p>
+                <h5 class="card-title">${phone.brand}</h5>
+                <p class="card-text">${phone.phone_name}</p>
                 <button onclick="LoadPhoneDetail('${phone.slug}')" class="bg-primary text-white border-0 rounded-3 fs-4 px-2">see details </button>
             
              </div>
