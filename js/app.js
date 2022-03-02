@@ -31,3 +31,36 @@ const displaySearchResult = phones => {
         searshResult.appendChild(div);
     });
 }
+const LoadPhoneDetail = phoneid => {
+
+    // console.log(phoneid)
+    const url = https://openapi.programming-hero.com/api/phone/${phoneid};
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displayPhoneDetail(data.data))
+}
+
+const displayPhoneDetail = info => {
+    // console.log(info)
+    const phoneDetails = document.getElementById('phone-details')
+    phoneDetails.textContent = '';
+    const div = document.createElement('div')
+    div.classList.add('card');
+    div.innerHTML = `
+    <img src="${info.image}" class="card-img-top w-50 mx-auto" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Brand : ${info.name}</h5>
+      <p class="card-text">Model :  ${info.brand}</p>
+      <p class="card-text">ChipSet :  ${info.mainFeatures.chipSet}</p>
+      <p class="card-text">Display :  ${info.mainFeatures.displaySize}</p>
+      <p class="card-text">Memory :  ${info.mainFeatures.memory}</p>
+      <p class="card-text">sensors :  ${info.mainFeatures.sensors}</p>
+      <p class="card-text">storage :  ${info.mainFeatures.storage}</p>
+      
+      
+
+      
+    `;
+    phoneDetails.appendChild(div);
+
+}
